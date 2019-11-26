@@ -63,3 +63,16 @@ db.Hospital.aggregate([
       }
    }
 ])
+
+db.Hospital.save({nome: "Hospital da Paz", endereco: "Recife - PE", atendimentos: ["Patricia", "Wando", "Patricia"], anoInauguracao: 1983} )
+
+
+db.Hospital.find( { $where: function() {
+   return this.atendimentos.filter(paciente => paciente == "Patricia").length > 0
+} } );
+
+db.Hospital.find({
+   atendimentos: {
+      $all: ["Patricia", "Wando"]
+   }
+})

@@ -1,9 +1,0 @@
-use hospital
-
-db.createCollection("Pessoa")
-db.createCollection("Hospital")
-
-db.Hospital.insert({ nome: "Hospital da Restauracao", endereco: "Recife - PE", medicos: [], pacientes: [] })
-
-db.Hospital.find({nome: "Hospital da Restauracao"})
-// { "_id" : ObjectId("5ddc178c7f472653401793c0"), "nome" : "Hospital da Restauracao", "endereco" : "Recife - PE", "medicos" : [ ], "pacientes" : [ ] }

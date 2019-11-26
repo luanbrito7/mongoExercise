@@ -37,3 +37,13 @@ db.Hospital.aggregate([
  ])
 
 db.Hospital.find({anoInauguracao: {$gte: 1990}}).sort({anoInauguracao: 1}).limit(1)
+
+db.Hospital.createIndex( { nome: "text" } )
+
+db.Hospital.find( { $text: { $search: "Restauracao" } } )
+
+db.Hospital.findOne({anoInauguracao: {$gte: 1990}})
+
+db.Hospital.update( {nome: "Hospital da Restauracao"}, {$set: { anoInauguracao: 1989 }} )
+
+db.Hospital.update( {nome: "Hospital da Restauracao"}, {$addToSet: { atendimentos: "Josielma" } } )

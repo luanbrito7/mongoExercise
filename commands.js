@@ -47,3 +47,19 @@ db.Hospital.findOne({anoInauguracao: {$gte: 1990}})
 db.Hospital.update( {nome: "Hospital da Restauracao"}, {$set: { anoInauguracao: 1989 }} )
 
 db.Hospital.update( {nome: "Hospital da Restauracao"}, {$addToSet: { atendimentos: "Josielma" } } )
+
+db.Hospital.update( {nome: "Hospital PT"}, {$addToSet: { atendimentos: "Josielma" } } )
+
+db.Hospital.aggregate([
+   {
+      $project: {
+         atendimentos: {
+            $filter: {
+               input: "$atendimentos",
+               as: "atendimentos",
+               cond: { $eq: ["$$atendimentos", "Josielma"] }
+            }
+         }
+      }
+   }
+])

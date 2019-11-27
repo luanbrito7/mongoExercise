@@ -108,8 +108,8 @@ db.Hospital.aggregate(
          {
            _id: null,
            maxLeitosUnicos: { $max: { $multiply: [ "$salas", "$leitosPorSala" ] } },
+           mediaLeitos: {$avg: { $multiply: [ "$salas", "$leitosPorSala" ] }},
          }
      }
    ]
 )
-

@@ -100,3 +100,16 @@ db.Hospital.aggregate( [
      }
    ]
 )
+
+db.Hospital.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: null,
+           maxLeitosUnicos: { $max: { $multiply: [ "$salas", "$leitosPorSala" ] } },
+         }
+     }
+   ]
+)
+

@@ -4,18 +4,18 @@ db.createCollection("Hospitau")
 
 db.Hospitau.renameCollection("Hospital")
 
-db.Hospital.insert({ nome: "Hospital da Restauracao", endereco: "Recife - PE" })
+db.Hospital.insert({ nome: "Hospital da Restauracao", endereco: "Recife - PE", salas: 50, leitosPorSala: 5})
 
 db.Hospital.find({nome: "Hospital da Restauracao"}).pretty()
 
-db.Hospital.update( {nome: "Hospital da Restauracao"}, {nome: "Hospital da Restauracao", endereco: "Recife - PE", atendimentos: ["Patricia", "Orlando", "Oswaldo"], anoInauguracao: 1984} )
+db.Hospital.update( {nome: "Hospital da Restauracao"}, {nome: "Hospital da Restauracao", endereco: "Recife - PE", atendimentos: ["Patricia", "Orlando", "Oswaldo"], anoInauguracao: 1984, salas: 50, leitosPorSala: 5} )
 
 
-db.Hospital.insert({ nome: "Hospital da Luz", endereco: "Australia", atendimentos: ["Carlos", "Giovanna", "Eduardo"], anoInauguracao: 1995 })
+db.Hospital.insert({ nome: "Hospital da Luz", endereco: "Australia", atendimentos: ["Carlos", "Giovanna", "Eduardo"], anoInauguracao: 1995, salas: 80, leitosPorSala: 8 })
 
-db.Hospital.insert({ nome: "Hospital PT", endereco: "Carpina", atendimentos: ["Dilma", "Lula", "Haddad", "Manuela"], anoInauguracao: 2000 })
+db.Hospital.insert({ nome: "Hospital PT", endereco: "Carpina", atendimentos: ["Dilma", "Lula", "Haddad", "Manuela"], anoInauguracao: 2000, salas: 20, leitosPorSala: 5 })
 
-db.Hospital.insert({ nome: "Hospital Bed Stuy", endereco: "Brooklyn", atendimentos: ["Perigo", "Gregorio", "Chris", "Carlos"], anoInauguracao: 1994 })
+db.Hospital.insert({ nome: "Hospital Bed Stuy", endereco: "Brooklyn", atendimentos: ["Perigo", "Gregorio", "Chris", "Carlos"], anoInauguracao: 1994, salas: 30, leitosPorSala: 6 })
 
 db.Hospital.aggregate([
    {
@@ -64,7 +64,7 @@ db.Hospital.aggregate([
    }
 ])
 
-db.Hospital.save({nome: "Hospital da Paz", endereco: "Recife - PE", atendimentos: ["Patricia", "Wando", "Patricia"], anoInauguracao: 1983} )
+db.Hospital.save({nome: "Hospital da Paz", endereco: "Recife - PE", atendimentos: ["Patricia", "Wando", "Patricia"], anoInauguracao: 1983, salas: 35, leitosPorSala: 7 } )
 
 
 db.Hospital.find( { $where: function() {
@@ -87,3 +87,16 @@ db.Hospital.aggregate( [
  ] )
 
  db.Hospital.find( { atendimentos: { $exists: true, $nin: [ "Lula", "Patricia" ] } } )
+
+ db.Hospital.aggregate(
+   [
+     {
+       $group:
+         {
+            _id: "$nome",
+           LeitosTotais: { $sum: { $multiply: [ "$salas", "$leitosPorSala" ] } },
+           count: { $sum: 1 }
+         }
+     }
+   ]
+)

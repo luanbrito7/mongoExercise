@@ -86,3 +86,4 @@ db.Hospital.aggregate( [
    }
  ] )
 
+ db.Hospital.find( { atendimentos: { $exists: true, $nin: [ "Lula", "Patricia" ] } } )

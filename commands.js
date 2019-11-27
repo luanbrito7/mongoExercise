@@ -76,3 +76,13 @@ db.Hospital.find({
       $all: ["Patricia", "Wando"]
    }
 })
+
+db.Hospital.aggregate( [
+   {
+     $group: {
+        _id: null,
+        count: { $sum: 1 }
+     }
+   }
+ ] )
+

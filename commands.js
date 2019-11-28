@@ -113,3 +113,21 @@ db.Hospital.aggregate(
      }
    ]
 )
+
+db.Hospital.mapReduce(
+  // map
+  function() {
+    emit(this.endereco, this.leitosPorSala * this.salas)
+  },
+  // reduce
+  function(key, values) {
+    return Array.sum(values)
+  },
+  {
+    query: {},
+    out: 'LeitosPorSala'
+  }
+)
+db.LeitosPorSala.find({})
+
+// db.Hospital.drop()

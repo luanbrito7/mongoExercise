@@ -125,9 +125,9 @@ db.Hospital.mapReduce(
   },
   {
     query: {},
-    out: 'LeitosPorSala'
+    out: 'LeitosPorEndereco'
   }
 )
-db.LeitosPorSala.find({})
+db.LeitosPorEndereco.find({})
 
 // db.Hospital.drop()
